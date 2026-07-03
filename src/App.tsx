@@ -58,11 +58,15 @@ function readSessions() {
     return parsed.map((session: any) => ({
       id: typeof session.id === 'string' ? session.id : createId(),
       title: typeof session.title === 'string' ? session.title : '',
-      keywords: Array.isArray(session.keywords) ? session.keywords.filter((keyword) => typeof keyword === 'string') : [],
+      keywords: Array.isArray(session.keywords)
+        ? (session.keywords as unknown[]).filter((keyword): keyword is string => typeof keyword === 'string')
+        : [],
       body: typeof session.body === 'string' ? session.body : '',
       flags: Array.isArray(session.flags) ? session.flags : [],
       ranges: Array.isArray(session.ranges) ? session.ranges : [],
-      vocabulary: Array.isArray(session.vocabulary) ? session.vocabulary.filter((item) => typeof item === 'string') : [],
+      vocabulary: Array.isArray(session.vocabulary)
+        ? (session.vocabulary as unknown[]).filter((item): item is string => typeof item === 'string')
+        : [],
       copyVocabularyWithContent: typeof session.copyVocabularyWithContent === 'boolean' ? session.copyVocabularyWithContent : false,
     })) as Session[]
   } catch {

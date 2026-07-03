@@ -1,8 +1,10 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
-// https://vite.dev/config/
+// Use a relative base so the app works on both Vercel and GitHub Pages.
+const base = process.env.VITE_BASE_URL || './'
+
 export default defineConfig({
-  base: '/writer/',
+  base,
   plugins: [react()],
 })
